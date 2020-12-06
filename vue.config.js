@@ -9,7 +9,7 @@ const name = defaultSettings.title || '综合办公系统'
 // 生产环境，测试和正式
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV)
 
-// externals
+// CDN 资源优化 externals
 // const externals = {
 //   vue: 'Vue',
 //   'vue-router': 'VueRouter',
@@ -64,13 +64,14 @@ module.exports = {
     //   }
     // }
   },
+
+  // 配置css
   css: {
     extract: IS_PROD, // 是否将组件中的 CSS 提取至一个独立的 CSS 文件中 (而不是动态注入到 JavaScript 中的 inline 代码)。
     sourceMap: false,
     loaderOptions: {
       scss: {
-        // 向全局sass样式传入共享的全局变量, $src可以配置图片cdn前缀
-        // 详情: https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
+        // 向全局sass样式传入共享的全局变量
         prependData: `
           @import "~@/styles/mixin.scss";
           @import "~@/styles/variables.scss";
@@ -78,17 +79,20 @@ module.exports = {
       }
     }
   },
+
   configureWebpack: config => {
     config.name = name
 
     // 为生产环境修改配置...
-    // if (IS_PROD) {
+    // if (!IS_PROD) {
     //   // externals
     //   config.externals = externals
     // }
   },
 
+  // 是一个函数，允许对内部的 webpack 配置进行更细粒度的修改。
   chainWebpack: config => {
+    // 移除资源预加载(路由懒加载才能正常使用)
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 
@@ -111,7 +115,7 @@ module.exports = {
     //     args[0].cdn = cdn.dev
     //   }
     //   return args
-    //  })
+    // })
 
     /**
      * 设置保留空格

@@ -13,7 +13,7 @@ import 'lib-flexible/flexible.js'
 // filters
 import './filters'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 new Vue({
   router,

@@ -5,7 +5,7 @@
 export const constantRouterMap = [
   {
     path: '/',
-    component: () => import('@/layouts'),
+    component: () => import('@/layouts/BottomView/'),
     redirect: '/home',
     meta: {
       title: '首页',
@@ -19,21 +19,46 @@ export const constantRouterMap = [
         meta: { title: '首页', keepAlive: false }
       },
       {
-        path: '/about',
-        name: 'About',
-        component: () => import('@/views/home/about'),
-        meta: { title: '关于我', keepAlive: false }
+        path: '/workSpace',
+        name: 'WorkSpace',
+        hidden: true,
+        component: () =>
+          import(/* webpackChunkName: "workSpace" */ '@/views/workSpace/'),
+        meta: {
+          keepAlives: true
+        }
+      },
+      {
+        path: '/mailList',
+        name: 'MailList',
+        component: () => import(/* webpackChunkName: "mailList" */ '@/views/mailList/'),
+        meta: { title: '通讯录', keepAlive: false }
+      },
+      {
+        path: '/mine',
+        name: 'Mine',
+        component: () => import(/* webpackChunkName: "mine" */ '@/views/mine/'),
+        meta: { title: '我的', keepAlive: false }
       }
     ]
   },
   {
-    path: '/workSpace',
-    name: '办公',
-    hidden: true,
-    component: () =>
-      import(/* webpackChunkName: "workSpace" */ '@/views/workSpace/'),
-    meta: {
-      keepAlives: true
-    }
+    path: '/',
+    name: 'page',
+    redirect: '/home',
+    component: () => import('@/layouts/HeaderView/'),
+    children: [
+      {
+        path: '/about',
+        name: 'About',
+        hidden: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/about/'),
+        meta: {
+          keepAlives: true
+        }
+      }
+    ]
   }
+
 ]

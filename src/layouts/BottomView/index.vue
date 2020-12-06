@@ -7,13 +7,13 @@
       <router-view v-else></router-view>
     </div>
     <div class="layout-footer">
-      <TabBar :data="tabbars" @change="handleChange" />
+      <FooterBar :data="tabbars" @change="handleChange" />
     </div>
   </div>
 </template>
 
 <script>
-import TabBar from '@/components/TabBar'
+import FooterBar from '@/components/Layout/FooterBar'
 export default {
   name: 'AppLayout',
   data() {
@@ -24,11 +24,24 @@ export default {
           name: 'Home'
         },
         icon: 'home-o'
+      }, {
+        title: '办公',
+        to: {
+          name: 'WorkSpace'
+        },
+        icon: 'home-o'
       },
       {
-        title: '关于我',
+        title: '通讯录',
         to: {
-          name: 'About'
+          name: 'MailList'
+        },
+        icon: 'home-o'
+      },
+      {
+        title: '我的',
+        to: {
+          name: 'Mine'
         },
         icon: 'user-o'
       }
@@ -36,7 +49,7 @@ export default {
     }
   },
   components: {
-    TabBar
+    FooterBar
   },
   methods: {
     handleChange(v) {
